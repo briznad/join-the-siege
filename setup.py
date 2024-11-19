@@ -24,6 +24,7 @@ setup(
             "pytest-cov>=2.0.0",
             "black>=21.0.0",
             "flake8>=3.9.0",
+            "requests>=2.0.0",
         ]
     },
 )
