@@ -4,4 +4,7 @@ venv
 .vscode
 __pycache__
 *.pyc
-virtual_env
+/virtual_env
+/document_classifier.egg-info
+classification_results_*.csv
+/logs
