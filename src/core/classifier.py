@@ -9,7 +9,9 @@ from ..utils.file_utils import FileManager
 import hashlib
 import os
 import logging
+import magic
 from prometheus_client import Summary, Counter, Histogram
+
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +34,7 @@ class DocumentClassifier:
             allowed_extensions={'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'tiff', 'xls', 'xlsx'},
             max_file_size=10 * 1024 * 1024  # 10MB
         )
+        self._mime = magic.Magic(mime=True)
 
     def _register_strategies(self):
         """Register all available industry strategies."""
@@ -68,6 +71,9 @@ class DocumentClassifier:
             file_size = os.path.getsize(file_path)
             file_hash = self._calculate_file_hash(file_path)
 
+            # Get mime type from file content
+            mime_type = self._mime.from_file(file_path)
+
             # Get appropriate extractor and extract content
             extractor = self.registry.get_extractor(file_path)
             content = extractor.extract_content(file_path)
@@ -102,7 +108,7 @@ class DocumentClassifier:
                 file_path=file_path,
                 document_type=result['document_type'],
                 confidence_score=result['confidence_score'],
-                mime_type=content.metadata['mime_type'],
+                mime_type=mime_type,
                 file_size=file_size,
                 file_hash=file_hash,
                 industry=industry,
