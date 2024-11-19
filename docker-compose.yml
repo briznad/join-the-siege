@@ -1,22 +1,29 @@
-version: '3.8'
-
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     ports:
       - "5000:5000"
     environment:
-      - FLASK_ENV=production
+      - FLASK_APP=src.api.routes
+      - FLASK_ENV=development
       - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - .:/app
     depends_on:
       - redis
       - worker
 
   worker:
-    build: .
-    command: celery -A document_classifier.core.tasks worker -l INFO -Q classification,extraction
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: celery -A src.core.queue.celery_config worker -l INFO
     environment:
       - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - .:/app
     depends_on:
       - redis
 

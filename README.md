@@ -18,9 +18,6 @@ cd join-the-siege
 # Install package and dependencies
 pip install -e ".[dev]"
 
-# Start Redis (required for task queue)
-docker run -d -p 6379:6379 redis:alpine
-
 # Start services using Docker Compose
 docker-compose up -d
 ```

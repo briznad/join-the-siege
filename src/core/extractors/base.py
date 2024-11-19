@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
-from ..exceptions.extraction_exceptions import ExtractionError
+from ...exceptions.extraction_exceptions import ExtractionError
 import logging
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class ExtractedContent:
 
 class BaseExtractor(ABC):
     """Base class for all format-specific extractors."""
-    
+
     @property
     @abstractmethod
     def supported_mimes(self) -> List[str]:
