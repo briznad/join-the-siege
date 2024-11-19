@@ -12,12 +12,15 @@ document_classifier.egg-info/requires.txt
 document_classifier.egg-info/top_level.txt
 src/__init__.py
 src/api/__init__.py
+src/api/app.py
 src/api/batch_routes.py
 src/api/monitoring.py
 src/api/routes.py
 src/api/validators.py
 src/core/__init__.py
 src/core/classifier.py
+src/core/config.py
+src/core/storage.py
 src/core/extractors/__init__.py
 src/core/extractors/base.py
 src/core/extractors/image.py
@@ -32,6 +35,7 @@ src/core/monitoring/metrics.py
 src/core/monitoring/prometheus.py
 src/core/queue/__init__.py
 src/core/queue/celery_config.py
+src/core/queue/tasks.py
 src/core/strategies/__init__.py
 src/core/strategies/base.py
 src/core/strategies/financial.py

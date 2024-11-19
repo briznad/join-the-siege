@@ -1,6 +1,6 @@
 from flask import Flask
 from .routes import api
-# from .batch_routes import batch_api
+from .batch_routes import batch_api
 # from .monitoring import monitoring
 from ..core.config import get_settings
 
@@ -13,7 +13,7 @@ def create_app():
 
     # Register blueprints
     app.register_blueprint(api, url_prefix='/api')
-    # app.register_blueprint(batch_api, url_prefix='/api/batch')
+    app.register_blueprint(batch_api, url_prefix='/api/batch')
     # app.register_blueprint(monitoring, url_prefix='/monitoring')
 
     return app

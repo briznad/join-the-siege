@@ -39,13 +39,26 @@ files = {
     for i in range(3)
 }
 response = requests.post(
-    'http://localhost:5000/batch/submit',
+    'http://localhost:5000/api/batch/submit',
     files=files
 )
 print(response.json())
 ```
 
 ## Testing
+
+### Create virtual environment and install dependencies (if not already done)
+```bash
+# create and activate Python virtual environment
+python -m venv virtual_env
+source virtual_env/bin/activate
+
+# install dependencies
+pip install --no-cache-dir -r requirements.txt
+
+# install dev dependencies
+pip install -e .
+```
 
 ### Run Test Suite
 ```bash

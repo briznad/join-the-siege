@@ -113,21 +113,21 @@ MAX_CONTENT_LENGTH = 50 * 1024 * 1024  # 50MB
 ```python
 # Synchronous classification
 response = requests.post(
-    'http://localhost:5000/classify',
+    'http://localhost:5000/api/classify',
     files={'file': open('document.pdf', 'rb')},
     data={'industry': 'financial'}
 )
 
 # Asynchronous classification
 response = requests.post(
-    'http://localhost:5000/classify/async',
+    'http://localhost:5000/api/classify/async',
     files={'file': open('document.pdf', 'rb')},
     data={'industry': 'financial'}
 )
 task_id = response.json()['task_id']
 
 # Check async task status
-response = requests.get(f'http://localhost:5000/classify/status/{task_id}')
+response = requests.get(f'http://localhost:5000/api/classify/status/{task_id}')
 ```
 
 ### Batch Processing
@@ -139,14 +139,14 @@ files = {
     for i in range(5)
 }
 response = requests.post(
-    'http://localhost:5000/batch/submit',
+    'http://localhost:5000/api/batch/submit',
     files=files,
     data={'industry': 'financial'}
 )
 batch_id = response.json()['batch_id']
 
 # Check batch status
-response = requests.get(f'http://localhost:5000/batch/{batch_id}/status')
+response = requests.get(f'http://localhost:5000/api/batch/{batch_id}/status')
 ```
 
 ## Extending the Classifier

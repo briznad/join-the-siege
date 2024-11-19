@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 import pandas as pd
 
-def test_documents(base_url="http://localhost:5000", files_dir="files"):
+def test_documents(base_url="http://localhost:5000/api", files_dir="tests/files"):
     """Test classification of multiple documents and generate a report."""
 
     results = []
