@@ -1,9 +1,11 @@
 from typing import Optional, Dict, Type, List
 from .extractors.registry import ExtractorRegistry
-from .extractors.pdf import PDFExtractor
 from .strategies.base import BaseIndustryStrategy
 from .models.document import Document
 from .extractors.base import ExtractedContent
+from .extractors.pdf import PDFExtractor
+from .extractors.image import ImageExtractor
+from .extractors.office import WordExtractor, ExcelExtractor
 from ..exceptions.classification import ClassificationError
 from ..utils.file_utils import FileManager
 import hashlib
@@ -26,6 +28,9 @@ class DocumentClassifier:
 
         # Register specific file extractors
         self.registry.register(PDFExtractor)
+        self.registry.register(ImageExtractor)
+        self.registry.register(WordExtractor)
+        self.registry.register(ExcelExtractor)
 
         self.strategies: Dict[str, BaseIndustryStrategy] = {}
         self._register_strategies()

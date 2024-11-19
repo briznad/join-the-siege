@@ -15,9 +15,6 @@ For a comparison of how this extended version of the app improves over the previ
 git clone https://github.com/briznad/join-the-siege.git
 cd join-the-siege
 
-# Install package and dependencies
-pip install -e ".[dev]"
-
 # Start services using Docker Compose
 docker-compose up -d
 ```
@@ -30,7 +27,7 @@ import requests
 # Classify a single document
 with open('document.pdf', 'rb') as f:
     response = requests.post(
-        'http://localhost:5000/classify',
+        'http://localhost:5000/api/classify',
         files={'file': f},
         data={'industry': 'financial'}  # Optional
     )

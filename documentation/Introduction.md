@@ -41,7 +41,16 @@ The classifier uses a three-stage approach:
 ```bash
 git clone https://github.com/briznad/join-the-siege.git
 cd join-the-siege
-pip install -e ".[dev]"
+
+# create and activate Python virtual environment
+python -m venv virtual_env
+source virtual_env/bin/activate
+
+# install dependencies
+pip install --no-cache-dir -r requirements.txt
+
+# install dev dependencies
+pip install -e .
 ```
 
 2. Start Redis (required for task queue):
@@ -67,7 +76,7 @@ import requests
 # Classify a single document
 with open('document.pdf', 'rb') as f:
     response = requests.post(
-        'http://localhost:5000/classify',
+        'http://localhost:5000/api/classify',
         files={'file': f},
         data={'industry': 'financial'}  # Optional
     )

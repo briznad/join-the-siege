@@ -1,6 +1,6 @@
 import pytest
 from document_classifier.core.classifier import DocumentClassifier
-from document_classifier.exceptions.classification_exceptions import ClassificationError
+from document_classifier.exceptions.classification import ClassificationError
 from document_classifier.core.models.document import Document
 import os
 
@@ -28,7 +28,7 @@ def test_invalid_file(classifier, temp_upload_dir):
     invalid_file = os.path.join(temp_upload_dir, "invalid.txt")
     with open(invalid_file, "w") as f:
         f.write("Invalid content")
-    
+
     with pytest.raises(ClassificationError):
         classifier.classify(invalid_file)
 
@@ -41,11 +41,11 @@ def test_multiple_industries(classifier, sample_files):
     """Test classification across different industries."""
     industries = ['financial', 'healthcare', 'legal']
     results = []
-    
+
     for industry in industries:
         result = classifier.classify(sample_files['bank_statement'], industry=industry)
         results.append(result)
-    
+
     # Should have different confidence scores for different industries
     confidence_scores = [r.confidence_score for r in results]
     assert len(set(confidence_scores)) > 1

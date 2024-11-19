@@ -4,7 +4,7 @@ class BaseConfig:
     UPLOAD_FOLDER = "files/uploads"
     MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10MB
     ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"}
-    REDIS_URL = "redis://localhost:6379/0"
+    REDIS_URL = "redis://redis:6379/0"
     LOG_LEVEL = "INFO"
 
     # Classification settings

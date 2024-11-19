@@ -5,7 +5,7 @@ import openpyxl
 from openpyxl.utils import get_column_letter
 import pandas as pd
 import logging
-from ..exceptions.classification import ExtractionError
+from ...exceptions.classification import ExtractionError
 
 logger = logging.getLogger(__name__)
 
