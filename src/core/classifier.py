@@ -1,5 +1,6 @@
 from typing import Optional, Dict, Type, List
 from .extractors.registry import ExtractorRegistry
+from .extractors.pdf import PDFExtractor
 from .strategies.base import BaseIndustryStrategy
 from .models.document import Document
 from .extractors.base import ExtractedContent
@@ -20,6 +21,10 @@ CLASSIFICATION_CONFIDENCE = Histogram('classification_confidence', 'Classificati
 class DocumentClassifier:
     def __init__(self):
         self.registry = ExtractorRegistry()
+
+        # Register specific file extractors
+        self.registry.register(PDFExtractor)
+
         self.strategies: Dict[str, BaseIndustryStrategy] = {}
         self._register_strategies()
         self.file_manager = FileManager(

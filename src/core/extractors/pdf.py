@@ -6,7 +6,7 @@ import pytesseract
 from PIL import Image
 import io
 import re
-from ..exceptions.classification import ExtractionError
+from ...exceptions.classification import ExtractionError
 import logging
 
 logger = logging.getLogger(__name__)
