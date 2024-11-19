@@ -66,7 +66,7 @@ export FLASK_ENV=development
 flask run
 
 # Terminal 2: Start the Celery worker
-celery -A src.core.tasks worker -l INFO
+celery -A src.core.queue.tasks worker -l INFO
 ```
 
 4. Classify a single document:
