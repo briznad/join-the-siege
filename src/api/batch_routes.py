@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
-from ..core.tasks import process_batch
+from ..core.queue.tasks import process_batch
 from ..core.storage import DocumentStore
 from ..utils.file_utils import BatchFileManager
 from ..utils.logging import RequestLogger, AuditLogger, MetricsLogger
@@ -40,7 +40,7 @@ def submit_batch():
             if file and file.filename:
                 doc_id = str(uuid.uuid4())
                 document_ids.append(doc_id)
-                
+
                 files.append({
                     "id": doc_id,
                     "filename": secure_filename(file.filename),
@@ -101,7 +101,7 @@ def batch_status(batch_id):
     try:
         store = DocumentStore()
         documents = store.get_batch_documents(batch_id)
-        
+
         if not documents:
             return jsonify({"error": "Batch not found"}), 404
 
@@ -137,7 +137,7 @@ def cancel_batch(batch_id):
     try:
         store = DocumentStore()
         documents = store.get_batch_documents(batch_id)
-        
+
         if not documents:
             return jsonify({"error": "Batch not found"}), 404
 
@@ -145,7 +145,7 @@ def cancel_batch(batch_id):
         for doc in documents:
             if doc["status"] == "pending":
                 store.update_document_status(doc["id"], "cancelled")
-                
+
         # Cancel batch task
         process_batch.AsyncResult(batch_id).revoke(terminate=True)
 
@@ -170,13 +170,13 @@ def retry_batch(batch_id):
     try:
         store = DocumentStore()
         documents = store.get_batch_documents(batch_id)
-        
+
         if not documents:
             return jsonify({"error": "Batch not found"}), 404
 
         # Collect failed document IDs
         failed_docs = [
-            doc["id"] for doc in documents 
+            doc["id"] for doc in documents
             if doc["status"] in ["failed", "cancelled"]
         ]
 
@@ -215,7 +215,7 @@ def batch_results(batch_id):
     try:
         store = DocumentStore()
         documents = store.get_batch_documents(batch_id)
-        
+
         if not documents:
             return jsonify({"error": "Batch not found"}), 404
 

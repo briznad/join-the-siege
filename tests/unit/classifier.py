@@ -1,7 +1,7 @@
 import pytest
-from document_classifier.core.classifier import DocumentClassifier
-from document_classifier.exceptions.classification import ClassificationError
-from document_classifier.core.models.document import Document
+from src.core.classifier import DocumentClassifier
+from src.exceptions.classification import ClassificationError
+from src.core.models.document import Document
 import os
 
 def test_classify_bank_statement(classifier, sample_files):

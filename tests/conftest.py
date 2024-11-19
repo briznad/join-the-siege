@@ -2,9 +2,9 @@ import pytest
 from pathlib import Path
 import tempfile
 import shutil
-from document_classifier.core.classifier import DocumentClassifier
-from document_classifier.core.extractors.registry import ExtractorRegistry
-from document_classifier.tools.data_generation.generator import DocumentGenerator
+from src.core.classifier import DocumentClassifier
+from src.core.extractors.registry import ExtractorRegistry
+from src.tools.data_generation.generator import DocumentGenerator
 
 @pytest.fixture
 def temp_upload_dir():

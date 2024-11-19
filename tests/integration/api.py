@@ -2,7 +2,7 @@ import pytest
 from flask import url_for
 import json
 import os
-from document_classifier.api.routes import app
+from src.api.routes import app
 
 @pytest.fixture
 def client():
@@ -23,7 +23,7 @@ def test_classify_endpoint(client, sample_files):
             data=data,
             content_type='multipart/form-data'
         )
-    
+
     assert response.status_code == 200
     result = json.loads(response.data)
     assert 'document_type' in result
@@ -36,7 +36,7 @@ def test_batch_endpoint(client, sample_files):
     for name, path in sample_files.items():
         with open(path, 'rb') as f:
             files.append((f, f'{name}.docx'))
-    
+
     data = {
         'files': files,
         'industry': 'financial'
@@ -46,7 +46,7 @@ def test_batch_endpoint(client, sample_files):
         data=data,
         content_type='multipart/form-data'
     )
-    
+
     assert response.status_code == 200
     result = json.loads(response.data)
     assert 'batch_id' in result
@@ -74,7 +74,7 @@ def test_invalid_file(client):
         data=data,
         content_type='multipart/form-data'
     )
-    
+
     assert response.status_code == 400
     result = json.loads(response.data)
     assert 'error' in result
@@ -86,7 +86,7 @@ def test_missing_file(client):
         data={'industry': 'financial'},
         content_type='multipart/form-data'
     )
-    
+
     assert response.status_code == 400
     result = json.loads(response.data)
     assert 'error' in result

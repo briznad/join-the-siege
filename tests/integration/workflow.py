@@ -1,7 +1,7 @@
 import pytest
-from document_classifier.core.classifier import DocumentClassifier
-from document_classifier.core.queue.tasks import classify_document, process_batch
-from document_classifier.core.models.document import Document
+from src.core.classifier import DocumentClassifier
+from src.core.queue.tasks import classify_document, process_batch
+from src.core.models.document import Document
 import time
 
 def test_end_to_end_classification(sample_files, classifier):
