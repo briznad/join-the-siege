@@ -57,7 +57,7 @@ source virtual_env/bin/activate
 pip install --no-cache-dir -r requirements.txt
 
 # install dev dependencies
-pip install -e .
+pip install -e ".[dev]"
 ```
 
 ### Run Test Suite
