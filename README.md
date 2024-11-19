@@ -4,9 +4,9 @@ A scalable document classification system that supports multiple industries and 
 
 ## Background
 
-For a detailed overview of this apps' objectives and capabilities, see the [INTRODUCTION]('INTRODUCTION.md') document.
+For a detailed overview of this apps' objectives and capabilities, see the [INTRODUCTION](INTRODUCTION.md) document.
 
-For a comparison of how this extended version of the app improves over the previous, 2-file version, see the [IMPROVEMENTS]('IMPROVEMENTS.md') document.
+For a comparison of how this extended version of the app improves over the previous, 2-file version, see the [IMPROVEMENTS](IMPROVEMENTS.md) document.
 
 ## Installation
 
