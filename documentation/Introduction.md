@@ -39,8 +39,8 @@ The classifier uses a three-stage approach:
 
 1. Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/yourusername/document-classifier.git
-cd document-classifier
+git clone https://github.com/briznad/join-the-siege.git
+cd join-the-siege
 pip install -e ".[dev]"
 ```
 
@@ -52,7 +52,7 @@ docker run -d -p 6379:6379 redis:alpine
 3. Start the application:
 ```bash
 # Terminal 1: Start the API server
-export FLASK_APP=src.api.routes
+export FLASK_APP=src.api.app:app
 export FLASK_ENV=development
 flask run
 

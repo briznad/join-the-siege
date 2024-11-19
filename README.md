@@ -83,7 +83,7 @@ To test classification performance:
 python test_documents.py
 
 # Test against custom server
-python test_documents.py --base-url http://your-server:5000
+python test_documents.py --base-url http://[your-server]:5000
 
 # Test different document set
 python test_documents.py --files-dir /path/to/files

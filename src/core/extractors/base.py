@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
-from ...exceptions.extraction_exceptions import ExtractionError
+from ...exceptions.classification import ExtractionError
 import logging
 
 logger = logging.getLogger(__name__)

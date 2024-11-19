@@ -6,7 +6,7 @@ import pytesseract
 from PIL import Image
 import io
 import re
-from ..exceptions.extraction_exceptions import ExtractionError
+from ..exceptions.classification import ExtractionError
 import logging
 
 logger = logging.getLogger(__name__)
@@ -21,11 +21,11 @@ class PDFExtractor(BaseExtractor):
             with open(file_path, 'rb') as file:
                 # Try text extraction with PyPDF2 first
                 text, metadata = self._extract_with_pypdf2(file)
-                
+
                 # If text extraction yields poor results, try pdfplumber
                 if not text or self._needs_ocr(text):
                     text, tables = self._extract_with_pdfplumber(file_path)
-                    
+
                     # If still poor results, try OCR
                     if self._needs_ocr(text):
                         text = self._extract_with_ocr(file_path)
@@ -64,7 +64,7 @@ class PDFExtractor(BaseExtractor):
     def _extract_with_pypdf2(self, file) -> tuple[str, Dict[str, Any]]:
         """Extract text and metadata using PyPDF2."""
         pdf = PyPDF2.PdfReader(file)
-        
+
         # Extract text
         text = ""
         for page in pdf.pages:
@@ -90,7 +90,7 @@ class PDFExtractor(BaseExtractor):
         with pdfplumber.open(file_path) as pdf:
             text = ""
             tables = []
-            
+
             for page in pdf.pages:
                 text += page.extract_text() or ""
                 tables.extend(page.extract_tables())
@@ -112,17 +112,17 @@ class PDFExtractor(BaseExtractor):
         """Extract headers and footers from PDF."""
         headers = []
         footers = []
-        
+
         with pdfplumber.open(file_path) as pdf:
             for page in pdf.pages:
                 # Define header and footer regions
                 header_bbox = (0, 0, page.width, page.height * 0.1)
                 footer_bbox = (0, page.height * 0.9, page.width, page.height)
-                
+
                 # Extract text from regions
                 header = page.crop(header_bbox).extract_text() or ""
                 footer = page.crop(footer_bbox).extract_text() or ""
-                
+
                 if header: headers.append(header)
                 if footer: footers.append(footer)
 
@@ -132,7 +132,7 @@ class PDFExtractor(BaseExtractor):
         """Determine if OCR is needed based on text quality."""
         if not text:
             return True
-            
+
         # Check if text contains mainly special characters or whitespace
         alphanumeric_ratio = sum(c.isalnum() for c in text) / len(text)
         return alphanumeric_ratio < 0.1

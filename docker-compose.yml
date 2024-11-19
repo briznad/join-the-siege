@@ -6,7 +6,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - FLASK_APP=src.api.routes
+      - FLASK_APP=src.api.app:app
       - FLASK_ENV=development
       - REDIS_URL=redis://redis:6379/0
     volumes:
