@@ -11,8 +11,10 @@ def create_app():
     app.config.from_object(settings)
 
     # Register blueprints
-    app.register_blueprint(api, url_prefix='/api')
-    app.register_blueprint(batch_api, url_prefix='/api/batch')
+    url_prefix='/api'
+
+    app.register_blueprint(api, url_prefix=url_prefix)
+    app.register_blueprint(batch_api, url_prefix=url_prefix)
 
     return app
 

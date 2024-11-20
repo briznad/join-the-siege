@@ -3,6 +3,7 @@ from src.core.classifier import DocumentClassifier
 from src.core.queue.tasks import classify_document, process_batch
 from src.core.models.document import Document
 import time
+import os
 
 def test_end_to_end_classification(sample_files, classifier):
     """Test complete classification workflow."""

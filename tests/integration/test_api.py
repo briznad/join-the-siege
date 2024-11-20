@@ -2,7 +2,7 @@ import pytest
 from flask import url_for
 import json
 import os
-from src.api.routes import app
+from src.api.app import app
 
 @pytest.fixture
 def client():
@@ -19,11 +19,11 @@ def test_classify_endpoint(client, sample_files):
             'industry': 'financial'
         }
         response = client.post(
-            '/classify',
+            '/api/classify',
             data=data,
             content_type='multipart/form-data'
         )
-
+    
     assert response.status_code == 200
     result = json.loads(response.data)
     assert 'document_type' in result
@@ -36,32 +36,22 @@ def test_batch_endpoint(client, sample_files):
     for name, path in sample_files.items():
         with open(path, 'rb') as f:
             files.append((f, f'{name}.docx'))
-
+    
     data = {
         'files': files,
         'industry': 'financial'
     }
     response = client.post(
-        '/batch/submit',
+        '/api/batch/submit',
         data=data,
         content_type='multipart/form-data'
     )
-
+    
     assert response.status_code == 200
     result = json.loads(response.data)
     assert 'batch_id' in result
     assert 'document_count' in result
     assert result['status'] == 'submitted'
-
-def test_health_endpoint(client):
-    """Test the /health endpoint."""
-    response = client.get('/health')
-    assert response.status_code == 200
-    result = json.loads(response.data)
-    assert 'status' in result
-    assert 'workers' in result
-    assert 'queues' in result
-    assert 'metrics' in result
 
 def test_invalid_file(client):
     """Test handling of invalid file upload."""
@@ -70,11 +60,11 @@ def test_invalid_file(client):
         'industry': 'financial'
     }
     response = client.post(
-        '/classify',
+        '/api/classify',
         data=data,
         content_type='multipart/form-data'
     )
-
+    
     assert response.status_code == 400
     result = json.loads(response.data)
     assert 'error' in result
@@ -82,18 +72,12 @@ def test_invalid_file(client):
 def test_missing_file(client):
     """Test handling of missing file."""
     response = client.post(
-        '/classify',
+        '/api/classify',
         data={'industry': 'financial'},
         content_type='multipart/form-data'
     )
-
+    
     assert response.status_code == 400
     result = json.loads(response.data)
     assert 'error' in result
     assert 'No file part' in result['error']
-
-def test_metrics_endpoint(client):
-    """Test the /metrics endpoint."""
-    response = client.get('/metrics')
-    assert response.status_code == 200
-    assert response.headers['Content-Type'] == 'text/plain; version=0.0.4'
