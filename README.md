@@ -21,28 +21,14 @@ docker-compose up -d
 
 ## Quick Start
 
-```python
-import requests
+```bash
+# navigate to directory with test files
+cd tests/files/
 
-# Classify a single document
-with open('document.pdf', 'rb') as f:
-    response = requests.post(
-        'http://localhost:5000/api/classify',
-        files={'file': f},
-        data={'industry': 'financial'}  # Optional
-    )
-print(response.json())
-
-# Submit a batch of documents
-files = {
-    f'file_{i}': open(f'document_{i}.pdf', 'rb')
-    for i in range(3)
-}
-response = requests.post(
-    'http://localhost:5000/api/batch/submit',
-    files=files
-)
-print(response.json())
+# let the classification begin
+curl -X POST http://localhost:5000/api/classify \
+  -F "file=@document.pdf" \
+  -F "industry=financial" # optional
 ```
 
 ## Testing
@@ -64,6 +50,7 @@ pip install -e ".[dev]"
 The repository includes sample documents for testing:
 ```
 files/
+├── document.pdf
 ├── bank_statement_1.pdf
 ├── bank_statement_2.pdf
 ├── bank_statement_3.pdf
