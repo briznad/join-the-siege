@@ -7,7 +7,8 @@ settings = get_settings()
 celery_app = Celery(
     'document_classifier',
     broker=settings.REDIS_URL,
-    backend=settings.REDIS_URL
+    backend=settings.REDIS_URL,
+    include=["src.core.queue.tasks"]
 )
 
 celery_app.conf.update(
@@ -17,6 +18,7 @@ celery_app.conf.update(
     task_soft_time_limit=3000,
     task_routes={
         'document_classifier.tasks.classify_document': {'queue': 'classification'},
+        'document_classifier.core.queue.process_batch': {'queue': 'batch'},
         'document_classifier.tasks.extract_text': {'queue': 'extraction'}
     },
     task_serializer='json',
