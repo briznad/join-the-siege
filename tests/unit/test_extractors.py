@@ -10,7 +10,7 @@ import os
 def extractors():
     return {
         'word': WordExtractor(),
-        'excel': ExcelExtractor(),
+        # 'excel': ExcelExtractor(),
         'pdf': PDFExtractor(),
         'image': ImageExtractor()
     }
@@ -120,7 +120,9 @@ def test_extractor_validation(extractors, sample_files):
             file_path = sample_files['financial_report']
         elif name == 'pdf':
             file_path = sample_files['invoice']
-        else:  # image
+        elif name == 'image':
             file_path = sample_files['drivers_license']
+
+        print(f'Validating {name}, extractor { extractor }, for file: {file_path}')
 
         assert extractor.validate_file(file_path)

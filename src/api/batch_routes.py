@@ -130,7 +130,7 @@ def batch_status(batch_id):
                 **stats,
                 "average_processing_time": processing_time
             },
-            "documents": documents
+            # "documents": documents
         }), 200
 
     except Exception as e:
