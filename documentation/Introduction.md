@@ -70,6 +70,7 @@ celery -A src.core.queue.tasks worker -l INFO
 ```
 
 4. Classify a single document:
+
 from the command line
 ```bash
 # navigate to directory with test files
