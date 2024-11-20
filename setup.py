@@ -25,6 +25,7 @@ setup(
             "black>=21.0.0",
             "flake8>=3.9.0",
             "requests>=2.0.0",
+            "faker>=8.0.0",
         ]
     },
 )
