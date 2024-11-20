@@ -70,6 +70,17 @@ celery -A src.core.queue.tasks worker -l INFO
 ```
 
 4. Classify a single document:
+from the command line
+```bash
+# navigate to directory with test files
+cd tests/files/
+
+# let the classification begin
+curl -X POST http://localhost:5000/api/classify \
+  -F "file=@document.pdf" \
+  -F "industry=financial" # Optional
+```
+OR from another Python app
 ```python
 import requests
 
@@ -92,8 +103,6 @@ docker-compose up -d
 
 2. Access services:
 - API: http://localhost:5000
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000
 
 3. Configure environment variables in `config/production.py`:
 ```python
