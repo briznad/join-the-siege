@@ -65,9 +65,10 @@ def test_documents(base_url="http://localhost:5000/api", files_dir="tests/files"
 
             # Poll for results
             for _ in range(30):  # Wait up to 30 seconds
+                time.sleep(1)
                 response = requests.get(f"{base_url}/batch/{batch_id}/status")
                 if response.json().get('status') == 'completed':
-                    batch_results = response.json().get('results', [])
+                    batch_results = response.json().get('documents', [])
                     for doc in batch_results:
                         results.append({
                             'filename': doc.get('filename'),
