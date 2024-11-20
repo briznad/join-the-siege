@@ -49,8 +49,6 @@ class ImageExtractor(BaseExtractor):
                     'height': img.height,
                     'format': img.format,
                     'mode': img.mode,
-                    # FIXME: @brad dpi type is not JSON serializable - TBD
-                    # 'dpi': img.info.get('dpi'),
                     'has_tables': bool(tables),
                     'ocr_confidence': avg_confidence
                 }
