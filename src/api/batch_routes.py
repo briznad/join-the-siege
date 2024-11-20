@@ -1,3 +1,5 @@
+import base64
+
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
 from ..core.queue.tasks import process_batch
@@ -65,9 +67,12 @@ def submit_batch():
 
         # Store documents
         for file in files:
+            encoded_content = base64.b64encode(file["content"])
+            stringified_content = encoded_content.decode("ascii")
             store.store_document(file["id"], {
                 "filename": file["filename"],
                 "industry": file["industry"],
+                "file_data": stringified_content,
                 "status": "pending",
                 "batch_id": batch_id,
                 "submitted_at": time.time()

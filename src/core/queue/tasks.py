@@ -1,3 +1,4 @@
+import base64
 import tempfile
 import os
 from ..storage import DocumentStore
@@ -53,9 +54,12 @@ def process_batch(self, batch_id: str, document_ids: list) -> list:
             document = store.get_document(doc_id)
             if document:
                 try:
+                    stringified = document['file_data']
+                    decoded = base64.b64decode(stringified)
                     # Submit classification task
+
                     result = classify_document.delay(
-                        document['file_data'],
+                        decoded,
                         document['filename'],
                         document.get('industry')
                     )
