@@ -37,7 +37,7 @@ The classifier uses a three-stage approach:
 
 ### Local Development
 
-1. Clone the repository and install dependencies:
+#### 1. Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/briznad/join-the-siege.git
 cd join-the-siege
@@ -53,12 +53,12 @@ pip install --no-cache-dir -r requirements.txt
 pip install -e .
 ```
 
-2. Start Redis (required for task queue):
+#### 2. Start Redis (required for task queue):
 ```bash
 docker run -d -p 6379:6379 redis:alpine
 ```
 
-3. Start the application:
+#### 3. Start the application:
 ```bash
 # Terminal 1: Start the API server
 export FLASK_APP=src.api.app:app
@@ -69,7 +69,7 @@ flask run
 celery -A src.core.queue.tasks worker -l INFO
 ```
 
-4. Classify a single document:
+#### 4. Classify a single document:
 
 from the command line
 ```bash
@@ -97,15 +97,15 @@ print(response.json())
 
 ### Production Deployment
 
-1. Build and start services using Docker Compose:
+#### 1. Build and start services using Docker Compose:
 ```bash
 docker-compose up -d
 ```
 
-2. Access services:
+#### 2. Access services:
 - API: http://localhost:5000
 
-3. Configure environment variables in `config/production.py`:
+#### 3. Configure environment variables in `config/production.py`:
 ```python
 REDIS_URL = 'redis://redis:6379/0'
 UPLOAD_FOLDER = '/app/uploads'
@@ -159,7 +159,7 @@ response = requests.get(f'http://localhost:5000/api/batch/{batch_id}/status')
 
 ### Adding New Industry Support
 
-1. Create a new strategy file (e.g., `src/core/strategies/legal.py`):
+#### 1. Create a new strategy file (e.g., `src/core/strategies/legal.py`):
 ```python
 from typing import Dict, List, Optional
 from .base import BaseIndustryStrategy
@@ -181,7 +181,7 @@ class LegalIndustryStrategy(BaseIndustryStrategy):
         }
 ```
 
-2. Register the strategy in `src/core/classifier.py`:
+#### 2. Register the strategy in `src/core/classifier.py`:
 ```python
 from .strategies.legal import LegalIndustryStrategy
 
@@ -195,7 +195,7 @@ def _register_strategies(self):
 
 ### Adding New File Format Support
 
-1. Create a new extractor (e.g., `src/core/extractors/powerpoint.py`):
+#### 1. Create a new extractor (e.g., `src/core/extractors/powerpoint.py`):
 ```python
 from typing import List
 from .base import BaseExtractor, ExtractedContent
@@ -210,7 +210,7 @@ class PowerPointExtractor(BaseExtractor):
         pass
 ```
 
-2. Register the extractor in your application initialization.
+#### 2. Register the extractor in your application initialization.
 
 ## Logging
 ```bash
