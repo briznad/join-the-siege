@@ -210,7 +210,27 @@ class PowerPointExtractor(BaseExtractor):
         pass
 ```
 
-#### 2. Register the extractor in your application initialization.
+#### 2. Register the extractor in `src/core/classifier.py`
+```python
+from .extractors.pdf import PDFExtractor
+from .extractors.image import ImageExtractor
+from .extractors.office import WordExtractor, ExcelExtractor
+from .extractors.powerpoint import PowerPointExtractor
+
+…
+
+class DocumentClassifier:
+    def __init__(self):
+        self.registry = ExtractorRegistry()
+
+        # Register specific file extractors
+        self.registry.register(PDFExtractor)
+        self.registry.register(ImageExtractor)
+        self.registry.register(WordExtractor)
+        self.registry.register(ExcelExtractor)
+        self.registry.register(PowerPointExtractor)
+```
+
 
 ## Logging
 ```bash
