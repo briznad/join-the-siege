@@ -7,6 +7,8 @@ import hashlib
 import magic
 import logging
 import shutil
+from typing import List, Dict, Tuple
+import tempfile
 
 logger = logging.getLogger(__name__)
 
@@ -215,7 +217,7 @@ class BatchFileManager(FileManager):
 
             # Check MIME type
             mime_type = magic.from_buffer(content, mime=True)
-            if not self._is_mime_type_allowed(mime_type):
+            if not self._allowed_mime_type(mime_type):
                 result['valid'] = False
                 result['errors'].append(f'MIME type {mime_type} not allowed')
 
