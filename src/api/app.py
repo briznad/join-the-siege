@@ -12,7 +12,7 @@ def create_app():
 
     # Register blueprints
     app.register_blueprint(api, url_prefix='/api')
-    app.register_blueprint(batch_api, url_prefix='/api/batch')
+    app.register_blueprint(batch_api, url_prefix='/api')
 
     return app
 
