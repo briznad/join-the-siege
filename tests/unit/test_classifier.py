@@ -37,6 +37,18 @@ def test_confidence_threshold(classifier, sample_files):
     result = classifier.classify(sample_files['invoice'])
     assert 0 <= result.confidence_score <= 1
 
+def test_file_metadata(classifier, sample_files):
+    """Test metadata extraction."""
+    result = classifier.classify(sample_files['bank_statement'])
+    assert 'mime_type' in result.metadata
+    assert 'file_size' in result.metadata
+    assert 'processed_at' in result.metadata
+
+def test_industry_validation(classifier, sample_files):
+    """Test invalid industry handling."""
+    with pytest.raises(ClassificationError, match="Unknown industry"):
+        classifier.classify(sample_files['bank_statement'], industry='invalid')
+
 def test_multiple_industries(classifier, sample_files):
     """Test classification across different industries."""
     industries = ['financial', 'healthcare', 'legal']
@@ -49,3 +61,21 @@ def test_multiple_industries(classifier, sample_files):
     # Should have different confidence scores for different industries
     confidence_scores = [r.confidence_score for r in results]
     assert len(set(confidence_scores)) > 1
+
+def test_text_extraction(classifier, sample_files):
+    """Test text extraction from document."""
+    result = classifier.classify(sample_files['bank_statement'])
+    assert result.extracted_text is not None
+    assert len(result.extracted_text) > 0
+
+def test_table_detection(classifier, sample_files):
+    """Test table detection in documents."""
+    result = classifier.classify(sample_files['bank_statement'])
+    assert 'has_tables' in result.metadata
+
+def test_classifier_initialization():
+    """Test classifier initialization."""
+    classifier = DocumentClassifier()
+    assert classifier.strategies
+    assert 'financial' in classifier.strategies
+    assert 'healthcare' in classifier.strategies
