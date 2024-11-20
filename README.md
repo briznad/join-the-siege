@@ -60,16 +60,6 @@ pip install --no-cache-dir -r requirements.txt
 pip install -e ".[dev]"
 ```
 
-### Run Test Suite
-```bash
-# Run all tests
-pytest tests/
-
-# Run specific test categories
-pytest tests/unit/
-pytest tests/integration/
-```
-
 ### Test with Sample Documents
 The repository includes sample documents for testing:
 ```
@@ -90,13 +80,13 @@ To test classification performance:
 1. Use the provided test script:
 ```bash
 # Run tests on sample documents
-python test_documents.py
+python tests/test_documents.py
 
 # Test against custom server
-python test_documents.py --base-url http://[your-server]:5000
+python tests/test_documents.py --base-url http://[your-server]:5000
 
 # Test different document set
-python test_documents.py --files-dir /path/to/files
+python tests/test_documents.py --files-dir /path/to/files
 ```
 
 2. The script will:
@@ -129,6 +119,16 @@ drivers_license     0.88  0.82  0.91
 invoice             0.83  0.79  0.89
 ```
 
+### Run Test Suite
+```bash
+# Run all tests
+pytest tests/
+
+# Or run specific test categories
+pytest tests/unit/
+pytest tests/integration/
+```
+
 ## Documentation
 
 - [Introduction](documentation/Introduction.md) - System overview and usage guide
@@ -143,12 +143,6 @@ config/
 ├── production.py
 └── testing.py
 ```
-
-## Monitoring
-
-Access monitoring dashboards:
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000
 
 ## Contributing
 

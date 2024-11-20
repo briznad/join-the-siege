@@ -7,7 +7,7 @@ A scalable, extensible document classification system that supports multiple fil
 - Multi-format support (PDF, Word, Excel, Images)
 - Industry-specific classification strategies
 - High-volume batch processing
-- Comprehensive monitoring and logging
+- Comprehensive logging
 - Extensible architecture
 - REST API interface
 
@@ -87,11 +87,7 @@ print(response.json())
 
 1. Build and start services using Docker Compose:
 ```bash
-# Start core services
 docker-compose up -d
-
-# Start monitoring stack (optional)
-docker-compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d
 ```
 
 2. Access services:
@@ -206,18 +202,7 @@ class PowerPointExtractor(BaseExtractor):
 
 2. Register the extractor in your application initialization.
 
-## Monitoring and Maintenance
-
-### Health Checks
-```bash
-# Check system health
-curl http://localhost:5000/health
-
-# Get detailed metrics
-curl http://localhost:5000/metrics
-```
-
-### Log Access
+## Logging
 ```bash
 # Application logs
 tail -f logs/document_classifier.log
@@ -225,16 +210,6 @@ tail -f logs/document_classifier.log
 # Error logs
 tail -f logs/document_classifier_error.log
 ```
-
-### Performance Monitoring
-
-1. Access Grafana (http://localhost:3000)
-2. Import the default dashboard
-3. Monitor:
-   - Document processing rates
-   - Classification accuracy
-   - Error rates
-   - System resource usage
 
 ## Best Practices
 
@@ -266,7 +241,6 @@ Common issues and solutions:
    - Check extraction quality for image-based documents
 
 2. **Performance Issues**
-   - Monitor worker queue sizes
    - Check system resource usage
    - Review batch sizes
    - Verify Redis connection

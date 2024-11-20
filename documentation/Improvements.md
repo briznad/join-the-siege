@@ -12,7 +12,7 @@ The original classifier consisted of two files:
 - Single industry support
 - No batch processing
 - Limited error handling
-- No monitoring or logging
+- No logging
 - Difficult to extend or maintain
 - No production-ready features
 
@@ -33,7 +33,7 @@ The original classifier consisted of two files:
 | Processing Model | Synchronous only | Async with job queue | Better handling of high volumes |
 | Batch Processing | None | Full batch support | Efficient bulk processing |
 | Infrastructure | Single process | Distributed with workers | Horizontal scaling |
-| Performance | Limited by single process | Parallel processing with monitoring | Higher throughput |
+| Performance | Limited by single process | Parallel processing | Higher throughput |
 
 ### Maintainability
 | Aspect | Original | New | Benefits |
@@ -41,7 +41,6 @@ The original classifier consisted of two files:
 | Code Structure | Two flat files | Modular package design | Better organization |
 | Error Handling | Basic HTTP errors | Comprehensive exception hierarchy | Better error management |
 | Testing | None | Unit and integration tests | Reliable code changes |
-| Monitoring | None | Prometheus + Grafana integration | Production observability |
 | Configuration | Hardcoded values | Environment-based config | Easier deployment |
 | Documentation | None | Full documentation + usage examples | Easier onboarding |
 
@@ -58,13 +57,11 @@ The original classifier consisted of two files:
    - Asynchronous processing with Celery
    - Batch processing capabilities
    - Distributed architecture
-   - Performance monitoring
    - Resource management
 
 3. **Maintainability**
    - Modular, extensible architecture
    - Comprehensive testing suite
-   - Production monitoring
    - Clear documentation
    - Configuration management
 
